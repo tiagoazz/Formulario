@@ -1,0 +1,221 @@
+/* Estilos globais */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Open Sans";
+  }
+  
+  html, body {
+	height: 100%;
+  }
+  
+  @font-face {
+	src: url('../fonts/OpenSans-Light.ttf');
+	font-family: "Open Sans";
+  }
+  
+  /* Header */
+  .header {
+	min-width: 100px;
+	height: 99px;
+	background-color: #ff8902;
+	padding: 0 2%;
+  }
+  
+  .header img {
+	margin: 15px;
+  }
+  
+  /* Banner */
+  .container-banner {
+	width: 100%;
+	padding: 0 2%;
+	height: 557px;
+	background-image: url('../images/header_bg.png');
+	background-size: cover;
+	background-position: center;
+  }
+  
+  .container-banner > .center {
+	height: 100%;
+	display: flex; /* Flexbox para o banner */
+	align-items: center; /* Alinha verticalmente os elementos */
+  }
+  
+  /* Formulário */
+  .form {
+	padding: 10px;
+	width: 400px;
+	height: calc(100% + 30px);
+	margin-left: auto; /*  Alinha à direita usando margin-left: auto */
+	position: relative;
+	top: -15px;
+	border-width: 12px;
+	border-color: rgba(45, 159, 0, 0.5);
+	border-style: solid;
+	background-color: rgb(201, 210, 121);
+	background-clip: padding-box;
+  }
+  
+  .form h2 {
+	font-weight: normal;
+	color: #000000;
+	font-size: 21px;
+  }
+  
+  .input-container {
+	margin-top: 20px;
+  }
+  
+  .input-container label { /* Usar label para associar ao input */
+	display: block; /* Ocupa toda a largura */
+	color: #000000;
+	font-size: 17px;
+	margin-bottom: 5px;
+  }
+  
+  .form p {
+	color: #000000;
+	font-size: 17px;
+	margin: 20px 0;
+  }
+  
+  .input-container input[type=text],
+  .input-container input[type=email],
+  .input-container input[type=tel] {
+	margin-top: 8px;
+	width: 100%; /*  Ocupa toda a largura */
+	height: 55px;
+	border: 1px solid #000000;
+	padding: 10px; /* Adiciona espaço interno */
+  }
+  
+  .form .input-submit-container {
+	text-align: center;
+  }
+  
+  .form input[type=submit] {
+	color: rgb(255, 255, 255);
+	font-size: 25px;
+	width: 280px;
+	height: 56px;
+	background-color: #f57b00c5;
+	border: none;
+	cursor: pointer;
+	border-bottom: 5px solid #160162;
+	transition: background-color 0.3s ease; /* Transição para hover */
+  }
+  
+  .form input[type=submit]:hover {
+	background-color: #323665;
+  }
+  
+  /* Lista */
+  .container-list {
+	padding: 30px;
+	margin-top: 100px;
+	width: 519px;
+	height: 270px;
+	background-color: rgba(236, 141, 9, 0.304);
+  }
+  
+  .container-list ul {
+	list-style-position: inside;
+  }
+  
+  .container-list ul li {
+	margin-top: 18px;
+	color: white;
+  }
+  
+  /* Conteúdo Principal */
+  .container-2 {
+	min-width: 1200px;
+	padding: 40px 0;
+	background-color: #ddd;
+	text-align: center;
+  }
+  
+  .container-2 h2 {
+	font-weight: normal;
+  }
+  
+  .container-2 p {
+	width: 698px;
+	margin: 15px 0;
+	text-align: left; /* Alinhamento à esquerda */
+  }
+  
+  .arrow {
+	position: relative;
+	top: 60px;
+	left: 50%;
+	transform: translateX(-50%); /* Centra horizontalmente */
+	width: 40px;
+	height: 40px;
+	background-image: url('../images/arrow.png');
+	background-size: 100% 100%;
+  }
+  
+  /* Seção com "Aprenda com quem está no mercado" */
+  .section-1 {
+	min-width: 1200px;
+	padding: 90px 0;
+  }
+  
+  .section-1 h2 {
+	text-align: center;
+	color: #000000;
+	font-weight: normal;
+  }
+  
+  .container-section {
+	margin-top: 40px;
+	color: rgb(0, 0, 0);
+	display: flex; /* Flexbox para os cards */
+	flex-wrap: wrap; /* Permite que os cards quebrem a linha */
+	justify-content: center; /*  Centraliza os cards */
+  }
+  
+  .container-single {
+	width: calc(33.333% - 20px); /* Ajuste para evitar quebras de linha */
+	margin: 10px; /* Margem para espaçamento entre os cards */
+	padding: 30px;
+	border: 1px solid #ddd; /* Borda para visualização */
+	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Sombra para visualização */
+  }
+  
+  .container-single p {
+	text-align: left; /* Alinhamento à esquerda */
+	padding: 10px 25px;
+  }
+  
+  .container-single img {
+	width: 70px;
+	display: block; /* Ocupa toda a largura */
+	margin: 0 auto; /* Centraliza horizontalmente */
+  }
+  
+  /* Media Queries (responsividade) */
+  @media (max-width: 768px) { /* Para telas menores que 768px */
+	.container-single {
+	  width: 100%; /*  Ocupa toda a largura */
+	}
+  }
+  
+  @media (max-width: 480px) { /* Para telas menores que 480px */
+	.container-banner > .center {
+	  flex-direction: column; /*  Elementos na coluna */
+	  align-items: flex-start; /* Alinha à esquerda */
+	}
+  
+	.form {
+	  width: 100%;
+	}
+  
+	.container-list {
+	  width: 100%;
+	  margin-top: 20px; /* Ajuste a margem para telas menores */
+	}
+  }
