@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesquisa de Intenção de Voto</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 15px;
+        }
+        select, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        canvas {
+            max-width: 100%;
+        }
+        .results {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Pesquisa de Intenção de Voto</h1>
+    <form id="surveyForm">
+        <!-- Seção 1: Avaliação de Prioridades e Competências -->
+        <label for="priority">Qual é o principal problema a ser resolvido?</label>
+        <select id="priority" required>
+            <option value="seguranca">Segurança</option>
+            <option value="educacao">Educação</option>
+            <option value="saude">Saúde</option>
+            <option value="mobilidade">Mobilidade Urbana</option>
+            <option value="emprego">Emprego</option>
+        </select>
+
+        <label for="competencia">Quem é mais competente para resolver este problema?</label>
+        <select id="competencia" required>
+            <option value="a">Candidato A</option>
+            <option value="b">Candidato B</option>
+            <option value="nenhum">Nenhum dos dois</option>
+        </select>
+
+        <label for="lideranca">Quem está mais preparado para liderar?</label>
+        <select id="lideranca" required>
+            <option value="a">Candidato A</option>
+            <option value="b">Candidato B</option>
+            <option value="nao-sei">Não sei dizer</option>
+        </select>
+
+        <!-- Botão para enviar o formulário -->
+        <button type="button" onclick="submitForm()">Enviar Resposta</button>
+    </form>
+
+    <!-- Resultados e gráficos -->
+    <div class="results">
+        <h2>Resultados da Pesquisa</h2>
+        <canvas id="competenceChart"></canvas>
+        <canvas id="leadershipChart"></canvas>
+        <div id="resultText"></div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    let responses = [];
+    const maxResponses = 10;
+
+    // Função para enviar as respostas
+    function submitForm() {
+        const priority = document.getElementById('priority').value;
+        const competencia = document.getElementById('competencia').value;
+        const lideranca = document.getElementById('lideranca').value;
+
+        responses.push({ priority, competencia, lideranca });
+
+        // Limpar o formulário
+        document.getElementById('surveyForm').reset();
+
+        // Verificar se já temos 10 respostas
+        if (responses.length >= maxResponses) {
+            document.querySelector('.results').style.display = 'block';
+            displayResults();
+        } else {
+            alert(`Respostas enviadas com sucesso. Faltam ${maxResponses - responses.length} respostas.`);
+        }
+    }
+
+    // Função para calcular e exibir os resultados
+    function displayResults() {
+        const competenceCount = { a: 0, b: 0, nenhum: 0 };
+        const leadershipCount = { a: 0, b: 0, 'nao-sei': 0 };
+
+        responses.forEach(response => {
+            competenceCount[response.competencia]++;
+            leadershipCount[response.lideranca]++;
+        });
+
+        const competenceLabels = ['Candidato A', 'Candidato B', 'Nenhum dos dois'];
+        const competenceData = [competenceCount.a, competenceCount.b, competenceCount.nenhum];
+
+        const leadershipLabels = ['Candidato A', 'Candidato B', 'Não sei'];
+        const leadershipData = [leadershipCount.a, leadershipCount.b, leadershipCount['nao-sei']];
+
+        // Gráfico de Competência
+        new Chart(document.getElementById('competenceChart'), {
+            type: 'bar',
+            data: {
+                labels: competenceLabels,
+                datasets: [{
+                    label: 'Competência Percebida',
+                    data: competenceData,
+                    backgroundColor: ['rgba(75, 192, 192, 0.6)', 'rgba(54, 162, 235, 0.6)', 'rgba(255, 99, 132, 0.6)'],
+                    borderWidth: 1
+                }]
+            }
+        });
+
+        // Gráfico de Liderança
+        new Chart(document.getElementById('leadershipChart'), {
+            type: 'pie',
+            data: {
+                labels: leadershipLabels,
+                datasets: [{
+                    label: 'Preparação para Liderança',
+                    data: leadershipData,
+                    backgroundColor: ['rgba(75, 192, 192, 0.6)', 'rgba(54, 162, 235, 0.6)', 'rgba(255, 206, 86, 0.6)'],
+                    borderWidth: 1
+                }]
+            }
+        });
+
+        // Exibir os resultados em texto
+        document.getElementById('resultText').innerHTML = `
+            <p><strong>Competência Percebida:</strong> Candidato A: ${competenceCount.a}, Candidato B: ${competenceCount.b}, Nenhum: ${competenceCount.nenhum}</p>
+            <p><strong>Preparação para Liderança:</strong> Candidato A: ${leadershipCount.a}, Candidato B: ${leadershipCount.b}, Não sei: ${leadershipCount['nao-sei']}</p>
+        `;
+    }
+</script>
+
+</body>
+</html>
